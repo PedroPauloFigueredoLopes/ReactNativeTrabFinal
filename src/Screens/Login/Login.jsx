@@ -22,16 +22,23 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.background}>
       <View style={styles.logo}>
-        <Image source={require("../../Imagens/ruteste2.jpg")} />
+        <Image
+          style={{
+            width: 380,
+            height: 340,
+          }}
+          source={require("../../Imagens/rh.jpg")}
+        />
       </View>
+
       <TextInput
-        placeholderTextColor="#3337"
+        placeholderTextColor="#414ee8"
         style={styles.input}
         placeholder="Email"
         autoCorrect={false}
       />
       <TextInput
-        placeholderTextColor="#3337"
+        placeholderTextColor="#414ee8"
         style={styles.input}
         placeholder="Senha"
         autoCorrect={false}
@@ -54,11 +61,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: "center",
     justifyContent: "center",
-    backgroundColor: "#3337",
+    backgroundColor: "#414ee8",
   },
 
   logo: {
-    marginBottom: 15,
+    marginBottom: 35,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -67,7 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingBottom: 50,
+    paddingBottom: 60,
   },
   input: {
     backgroundColor: "#FFFf",
@@ -89,7 +96,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 70,
     borderRadius: 7,
   },
   submittext: {

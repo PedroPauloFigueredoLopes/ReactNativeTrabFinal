@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
   onPress,
+  TouchableOpacity,
 } from "react-native";
 
 import api from "../../api/api";
@@ -48,6 +49,20 @@ const Lista = () => {
                   borderRadius: 7,
                 }}
               >
+                <View style={{ marginLeft: 145 }}>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      navigation.navigate("Info", {
+                        itemid: item.id,
+                        itemnome: item.nome,
+                        itemcpf: item.cpf,
+                      });
+                    }}
+                  >
+                    <Text style={styles.buttonText}>Editar/Deletar</Text>
+                  </TouchableOpacity>
+                </View>
                 <Text style={{ marginTop: 10, marginLeft: 10 }}>
                   ID: {item.id}
                 </Text>

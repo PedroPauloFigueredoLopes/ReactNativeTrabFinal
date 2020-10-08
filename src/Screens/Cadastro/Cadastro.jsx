@@ -95,7 +95,7 @@ function Form() {
       <Header title="Cadastro" />
       <View style={styles.container}>
         <Text style={styles.title}>
-          Preencha o os campos abaixo para adiconar novo funcionario:
+          Preencha os campos abaixo para adicionar um novo funcionário:
         </Text>
       </View>
       <View style={styles.inputContainer}>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputContainer: {
-    margin: 20,
+    margin: 25,
     alignItems: "stretch",
   },
   topImage: {
@@ -145,10 +145,10 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     height: 60,
-    backgroundColor: "#ffd913",
+    backgroundColor: "#134fff",
     borderRadius: 10,
     paddingHorizontal: 24,
-    fontSize: 16,
+    fontSize: 20,
     alignItems: "center",
     justifyContent: "center",
   },
