@@ -7,11 +7,16 @@ import {
   TextInput,
   Button,
   onPress,
+<<<<<<< HEAD
   TouchableOpacity,
+=======
+  Icon
+>>>>>>> 6186fcf63cce0f69f817146ea5c2acff0f42f9a6
 } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import api from "../../api/api";
-const Lista = () => {
+const Lista = ({navigation}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -38,6 +43,7 @@ const Lista = () => {
       />
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <View style={styles.itemsContainer}>
+          
           <FlatList
             data={data}
             renderItem={({ item }) => (
@@ -49,6 +55,7 @@ const Lista = () => {
                   borderRadius: 7,
                 }}
               >
+<<<<<<< HEAD
                 <View style={{ marginLeft: 145 }}>
                   <TouchableOpacity
                     style={styles.button}
@@ -61,6 +68,16 @@ const Lista = () => {
                     }}
                   >
                     <Text style={styles.buttonText}>Editar/Deletar</Text>
+=======
+                <View style={{marginLeft:145}}>
+                  <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate('Info',
+                    {itemid: item.id,
+                     itemnome: item.nome,
+                     itemcpf: item.cpf
+                    }); 
+                  }}>
+                    <Text style={styles.buttonText}>Editar/Deletar</Text>  
+>>>>>>> 6186fcf63cce0f69f817146ea5c2acff0f42f9a6
                   </TouchableOpacity>
                 </View>
                 <Text style={{ marginTop: 10, marginLeft: 10 }}>
@@ -72,6 +89,7 @@ const Lista = () => {
                 <Text style={{ marginBottom: 10, marginLeft: 10 }}>
                   NOME: {item.nome}
                 </Text>
+
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -115,6 +133,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#EEE",
     marginTop: 20,
     padding: 30,
+  },
+  button: {
+    marginTop: 10,
+    height: 50,
+    width: 150,
+    backgroundColor: "#ffd913",
+    borderRadius: 10,
+    paddingHorizontal: 24,
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "black",
+    fontWeight: "bold",
   },
 });
 /*import React, { Component } from 'react';

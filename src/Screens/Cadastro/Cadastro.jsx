@@ -57,25 +57,49 @@ import api from "../../api/api";
 import Header from "./Header";
 
 function Form() {
-  const [ufs, setEstados] = useState([]);
-
-  useEffect(() => {
-    const getFunFromApiAsync = async () => {
-      api("/funcionario").then((response) => {
-        setEstados(
-          response.data.map((estado) => ({
-            label: estado.uf,
-            key: estado.uf,
-            value: estado.uf,
-          }))
-        );
-      });
-    };
-    getFunFromApiAsync();
-  }, []);
-
+  const [data, setData] = useState([]);
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
+  const[funcionario,setFuncionario] = useState()
+  
+
+  // useEffect(() => {
+  //   const getFunFromApiAsync = async () => {
+  //     api("/funcionario").then((response) => {
+  //       setEstados(
+  //         response.data.map((estado) => ({
+  //           label: estado.uf,
+  //           key: estado.uf,
+  //           value: estado.uf,
+  //         }))
+  //       );
+  //     });
+  //   };
+  //   getFunFromApiAsync();
+  // }, []);
+
+
+  useEffect(() => {
+    const headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+    }
+    if(funcionario!=null){
+      api.post(`/funcionario`,funcionario,{headers:headers})
+    
+      .then(response => {
+        console.log(response)
+        setData(response.data);
+        alert ("Usuario cadastrado com sucesso");
+      
+      })
+      .catch (error => {
+        console.log(error)
+        alert ("Não foi possivel cadastrar");
+      
+      })
+   }
+  },[funcionario])
+  
 
   function handleNomeChange(nome) {
     setNome(nome);
@@ -85,10 +109,19 @@ function Form() {
   }
 
   function handleButtonPress() {
-    api.post("/funcionarios", { nome, cpf }).then((response) => {
-      alert(response.data.dados.length + "cadastrado");
-    });
+    const funcionario={ 
+      cpf: cpf,
+      nome: nome
+    }
+    setFuncionario(funcionario)
+  
   }
+
+ 
+
+  // api.post("/funcionarios", {funcionario}).then((response) => {
+  //   alert(response.data.length + "cadastrado");
+  // });
 
   return (
     <>
