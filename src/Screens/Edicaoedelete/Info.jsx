@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import api from "../../api/api";
 
-
 const Info = ({ route }) => {
+
   const { itemid, itemnome, itemcpf } = route.params;
   const [data, setData] = useState([])
   const [id, setID] = useState(itemid);
@@ -44,30 +44,18 @@ const Info = ({ route }) => {
     }
   }
 
-
-
-  /*   function handleButtonPress() {
-      const funcionario = {
-        cpf: cpf,
-        nome: nome
-      }
-      setFuncionario(funcionario)
-    } */
-
   const handleButtonPressDelete = () => {
-    api.delete(`/funcionario/${id}`).then(res => {
-      const del = funcionario.filter(funcionario => id !== funcionario.id)
-      setFuncionario(del)
-        .then(response => {
-          setData(response.data);
-          Alert.alert("Usuario deletado com sucesso");
-        })
-        .catch(error => {
-          console.log(error)
-          Alert.alert("Não foi possivel deletar");
-        })
-    })
+    api.delete(`/funcionario/${id}`)
+      .then(response => {
+        setData(response.data);
+        Alert.alert("Usuario deletado com sucesso");
+      })
+      .catch(error => {
+        console.log(error)
+        Alert.alert("Não foi possivel deletar");
+      })
   }
+
 
 
   return (

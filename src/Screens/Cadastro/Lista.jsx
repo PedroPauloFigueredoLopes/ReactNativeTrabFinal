@@ -5,21 +5,23 @@ import {
   View,
   StyleSheet,
   TextInput,
-  Button,
-  onPress,
-  Icon
+
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 import api from "../../api/api";
-const Lista = ({navigation}) => {
+import Funcionario from '../../database/ModelFuncionario'
+
+const Lista = ({ navigation }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    Funcionario.createTable()
+
     const getFunFromApiAsync = async () => {
       api("/funcionario")
         .then((response) => {
           setData(response.data);
+
           console.log(response.data);
         })
         .catch((err) => {
@@ -28,6 +30,30 @@ const Lista = ({navigation}) => {
     };
     getFunFromApiAsync();
   }, []);
+
+  const addFuncionariosOffline = () => {
+    const props = {
+      id: 1,
+      nome: 'Jose Henrique',
+      cpf: '71103593013'
+    }
+    Funcionario.create(props)
+    console.log(props)
+  }
+
+  const listaFuncionarioOffline = async () => {
+    const options = {
+      columns: 'id,nome,cpf',
+      where: {
+        id_gteq: 1
+      },
+    }
+    const query = await Funcionario.query(options)
+    console.log(query)
+  }
+
+
+
 
   return (
     <View style={styles.background}>
@@ -39,7 +65,7 @@ const Lista = ({navigation}) => {
       />
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <View style={styles.itemsContainer}>
-          
+
           <FlatList
             data={data}
             renderItem={({ item }) => (
@@ -51,14 +77,16 @@ const Lista = ({navigation}) => {
                   borderRadius: 7,
                 }}
               >
-                <View style={{marginLeft:145}}>
-                  <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate('Info',
-                    {itemid: item.id,
-                     itemnome: item.nome,
-                     itemcpf: item.cpf
-                    }); 
+                <View style={{ marginLeft: 145 }}>
+                  <TouchableOpacity style={styles.button} onPress={() => {
+                    navigation.navigate('Info',
+                      {
+                        itemid: item.id,
+                        itemnome: item.nome,
+                        itemcpf: item.cpf
+                      });
                   }}>
-                    <Text style={styles.buttonText}>Editar/Deletar</Text>  
+                    <Text style={styles.buttonText}>Editar/Deletar</Text>
                   </TouchableOpacity>
                 </View>
                 <Text style={{ marginTop: 10, marginLeft: 10 }}>
@@ -77,6 +105,13 @@ const Lista = ({navigation}) => {
           ></FlatList>
         </View>
       </View>
+      <TouchableOpacity style={styles.button} onPress={listaFuncionarioOffline}>
+        <Text style={styles.buttonText}>Pesquisa Offline</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={addFuncionariosOffline}>
+        <Text style={styles.buttonText}>Add Offline</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -131,210 +166,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-/*import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
-import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
- 
-export default class ExampleFour extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tableHead: ['Nome', 'ID', 'CPF'],
-      tableData: [
-        ['Joao', '2', '123412314142412', '4'],
-        ['a', 'b', 'c', 'd'],
-        ['1', '2', '3', '4'],
-        ['a', 'b', 'c', 'd']
-      ]
-    }
-  }
- 
-  _alertIndex(index) {
-    Alert.alert(`This is row ${index + 1}`);
-  }
- 
-  render() {
-    const state = this.state;
-    const element = (data, index) => (
-      <TouchableOpacity onPress={() => this._alertIndex(index)}>
-        <View style={styles.btn}>
-          <Text style={styles.btnText}>button</Text>
-        </View>
-      </TouchableOpacity>
-    );
- 
-    return (
-      <View style={styles.container}>
-        <Table borderStyle={{borderColor: 'transparent'}}>
-          <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
-          {
-            state.tableData.map((rowData, index) => (
-              <TableWrapper key={index} style={styles.row}>
-                {
-                  rowData.map((cellData, cellIndex) => (
-                    <Cell key={cellIndex} data={cellIndex === 3 ? element(cellData, index) : cellData} textStyle={styles.text}/>
-                  ))
-                }
-              </TableWrapper>
-            ))
-          }
-        </Table>
-      </View>
-    )
-  }
-}
- 
-const styles = StyleSheet.create({
-  container: { 
-	  flex: 1,
-	 padding: 16, 
-	 paddingTop: 30,
-	  backgroundColor: '#fff' 
-	},
-	
-  head: { height: 40, 
-	backgroundColor: '#808B97' 
-},
-
-  text: {
-	   margin: 6
-	 },
-
-  row: {
-   flexDirection: 'row',
-   backgroundColor: '#FFF1C1'
- },
-
-  btn: { 
-	  width: 58,
-	 height: 18, 
-	 backgroundColor: '#78B7BB',
-	   borderRadius: 2
-	 },
-
-  btnText: {
-	   textAlign: 'center',
-		color: '#fff'
-	 }
-}); */
-/* import React in our code
-import React, { useState, useEffect } from "react";
-
-// import all the components we are going to use
-import {
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  View,
-  FlatList,
-  TextInput,
-} from "react-native";
-
-const App = () => {
-  const [search, setSearch] = useState("");
-  const [filteredDataSource, setFilteredDataSource] = useState([]);
-  const [masterDataSource, setMasterDataSource] = useState([]);
-
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setFilteredDataSource(responseJson);
-        setMasterDataSource(responseJson);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  const searchFilterFunction = (text) => {
-    // Check if searched text is not blank
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
-      const newData = masterDataSource.filter(function (item) {
-        const itemData = item.title
-          ? item.title.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setFilteredDataSource(newData);
-      setSearch(text);
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setFilteredDataSource(masterDataSource);
-      setSearch(text);
-    }
-  };
-
-  const ItemView = ({ item }) => {
-    return (
-      // Flat List Item
-      <Text style={styles.itemStyle} onPress={() => getItem(item)}>
-        {item.id}
-        {"."}
-        {item.title.toUpperCase()}
-      </Text>
-    );
-  };
-
-  const ItemSeparatorView = () => {
-    return (
-      // Flat List Item Separator
-      <View
-        style={{
-          height: 0.5,
-          width: "100%",
-          backgroundColor: "#C8C8C8",
-        }}
-      />
-    );
-  };
-
-  const getItem = (item) => {
-    // Function for click on an item
-    alert("Id : " + item.id + " Title : " + item.title);
-  };
-
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.textInputStyle}
-          onChangeText={(text) => searchFilterFunction(text)}
-          value={search}
-          underlineColorAndroid="transparent"
-          placeholder="Search Here"
-        />
-        <FlatList
-          data={filteredDataSource}
-          keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={ItemSeparatorView}
-          renderItem={ItemView}
-        />
-      </View>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-  },
-  itemStyle: {
-    padding: 10,
-  },
-  textInputStyle: {
-    height: 40,
-    borderWidth: 1,
-    paddingLeft: 20,
-    margin: 5,
-    borderColor: "#009688",
-    backgroundColor: "#FFFFFF",
-  },
-});
-
-export default App; */
