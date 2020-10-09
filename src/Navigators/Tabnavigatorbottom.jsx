@@ -29,11 +29,11 @@ export default function RotasTab() {
           }
 
           // You can return any component that you like here!
-          return <Entypo name="text-document" size={24} color="blue" />;
+          return <Entypo name="text-document" size={24} color="#009688" />;
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'blue',
+        activeTintColor: '#009688',
         inactiveTintColor: 'gray',
       }}>
          <Tab.Screen name="Lista" component={Lista}  />

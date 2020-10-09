@@ -59,45 +59,55 @@ function Form() {
   return (
     <>
       <Header title="Cadastro." />
-      <View style={styles.container}>
-        <Text style={styles.title}>
-          Preencha o os campos abaixo para adiconar novo funcionario:
+      <View style={styles.background}>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            Preencha o os campos abaixo para adiconar novo funcionario:
         </Text>
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite o nome"
-          onChangeText={handleNomeChange}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Digite a cpf"
-          keyboardType={"numeric"}
-          onChangeText={handleCpfChange}
-        />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o nome"
+            onChangeText={handleNomeChange}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o cpf"
+            keyboardType={"numeric"}
+            onChangeText={handleCpfChange}
+          />
 
-        <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
-          <Text style={styles.buttonText}>Salvar</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
+            <Text style={styles.buttonText}>Salvar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   );
 }
 export default Form;
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: "#e6faf9",
+
+  },
   container: {
     alignItems: "center",
+
   },
   inputContainer: {
     margin: 25,
     alignItems: "stretch",
+
   },
   topImage: {
     margin: 20,
   },
   title: {
     fontSize: 20,
+    marginLeft: 20,
   },
   input: {
     marginTop: 10,
@@ -111,7 +121,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     height: 60,
-    backgroundColor: "#134fff",
+    backgroundColor: "#09736f",
     borderRadius: 10,
     paddingHorizontal: 24,
     fontSize: 20,

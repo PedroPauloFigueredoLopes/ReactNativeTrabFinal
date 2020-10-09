@@ -15,14 +15,14 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import api from "../../api/api";
 import Funcionario from '../../database/ModelFuncionario'
-
+import Header from "./Header";
+import { Entypo } from '@expo/vector-icons';
 const Lista = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const [query, setQuery] = useState([]);
+  // const [query, setQuery] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState([]);
-
 
 
   const getFunFromApiAsync = async () => {
@@ -38,21 +38,21 @@ const Lista = ({ navigation }) => {
       });
   };
   useEffect(() => {
-    Funcionario.createTable()
+    // Funcionario.createTable()
     getFunFromApiAsync();
   }, []);
 
 
-  const listaFuncionarioOffline = async () => {
-    const options = {
-      columns: 'id,nome,cpf',
-      where: {
-        id_gteq: 1
-      },
-    }
-    setQuery(await Funcionario.query(options))
-    console.log(query)
-  }
+  // const listaFuncionarioOffline = async () => {
+  //   const options = {
+  //     columns: 'id,nome,cpf',
+  //     where: {
+  //       id_gteq: 1
+  //     },
+  //   }
+  //   setQuery(await Funcionario.query(options))
+  //   console.log(query)
+  // }
 
   const searchFilterFunction = (text) => {
 
@@ -84,104 +84,119 @@ const Lista = ({ navigation }) => {
           color="#009688">
 
         </ActivityIndicator>
-        <Text>Aguarde</Text>
+        <Text>Carregando lista de funcionarios...</Text>
 
       </View>
     )
   }
   else {
     return (
-      <View style={styles.background}>
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-          <View style={styles.itemsContainer}>
-            <View style={styles.container}>
-              <TextInput style={styles.textInputStyle}
-                onChangeText={(text) => searchFilterFunction(text)}
-                value={search}
-                underlineColorAndroid="transparent"
-                placeholder="Search Here"
-              />
-            </View>
+      <>
+        <Header title="Lista" />
+        <View style={styles.background}>
+          <View style={styles.container}>
+            <TextInput style={styles.textInputStyle}
+              onChangeText={(text) => searchFilterFunction(text)}
+              value={search}
+              underlineColorAndroid="transparent"
+              placeholder="Digite o nome do funcionario que deseja encontrar"
+            />
+          </View>
 
+          <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <View>
+              <FlatList
+                data={filteredDataSource}
+                renderItem={({ item }) => (
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: "#000",
+                      marginBottom: 20,
+                      borderRadius: 10,
+                      backgroundColor: "#ffff",
 
-            <FlatList
-              data={filteredDataSource}
-              renderItem={({ item }) => (
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: "#000",
-                    marginBottom: 20,
-                    borderRadius: 7,
-                    backgroundColor: "#ffff",
-                  }}>
+                    }}
+                  >
+                    <View style={{ marginLeft: 145 }}>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                          navigation.navigate("Info", {
+                            itemid: item.id,
+                            itemnome: item.nome,
+                            itemcpf: item.cpf,
+                          });
+                        }}
+                      >
+                        <Entypo name="edit" size={20} color="#009688" />
+                        <Text style={styles.buttonText}>Editar/Deletar</Text>
+                      </TouchableOpacity>
+                    </View >
+                    <Text style={{ fontSize: 20, marginLeft: 10, marginTop: -40 }}>
+                      ID: {item.id}
+                    </Text>
+                    <Text style={{ marginTop: 10, marginLeft: 10 }}>
+                      NOME: {item.nome}
+                    </Text>
+                    <Text style={{ marginBottom: 15, marginLeft: 10 }}>
+                      CPF: {item.cpf}
+                    </Text>
 
-                  <View style={{ marginLeft: 145 }}>
-                    <TouchableOpacity style={styles.button} onPress={() => {
-                      navigation.navigate('Info',
-                        {
-                          itemid: item.id,
-                          itemnome: item.nome,
-                          itemcpf: item.cpf
-                        });
-                    }}>
-                      <Text style={styles.buttonText}>Editar/Deletar</Text>
-                    </TouchableOpacity>
                   </View>
-                  <Text style={{ marginTop: 10, marginLeft: 10 }}>
-                    ID: {item.id}
-                  </Text>
-                  <Text style={{ marginTop: 15, marginLeft: 10 }}>
-                    CPF: {item.cpf}
-                  </Text>
-                  <Text style={{ marginBottom: 10, marginLeft: 10 }}>
-                    NOME: {item.nome}
-                  </Text>
-                </View>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              onRefresh={() => getFunFromApiAsync()}
-              refreshing={loading}
-            ></FlatList>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+                onRefresh={() => getFunFromApiAsync()}
+                refreshing={loading}
 
+              ></FlatList>
+
+            </View>
           </View>
+
+
+
+
+
+
+
+          <TouchableOpacity style={[styles.button, { marginHorizontal: '30%', marginVertical: '5%' }]} onPress={() => {
+            navigation.navigate("ListaOff");
+          }}>
+            <Text style={styles.buttonText}>Pesquisa Offline</Text>
+          </TouchableOpacity>
+
+          {/* <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <View style={styles.itemsContainer}>
+              <FlatList
+                data={query}
+                renderItem={({ item }) => (
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: "#000",
+                      marginBottom: 20,
+                      borderRadius: 7,
+                    }}
+                  >
+                    <Text style={{ marginTop: 10, marginLeft: 10 }}>
+                      ID: {item.id}
+                    </Text>
+                    <Text style={{ marginTop: 15, marginLeft: 10 }}>
+                      CPF: {item.cpf}
+                    </Text>
+                    <Text style={{ marginBottom: 10, marginLeft: 10 }}>
+                      NOME: {item.nome}
+                    </Text>
+
+                  </View>
+                )}
+                keyExtractor={(item2, index) => index.toString()}
+              ></FlatList>
+            </View>
+          </View> */}
         </View>
-
-
-        <TouchableOpacity style={[styles.button, { marginHorizontal: '30%', marginVertical: '5%' }]} onPress={listaFuncionarioOffline}>
-          <Text style={styles.buttonText}>Pesquisa Offline</Text>
-        </TouchableOpacity>
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-          <View style={styles.itemsContainer}>
-            <FlatList
-              data={query}
-              renderItem={({ item }) => (
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: "#000",
-                    marginBottom: 20,
-                    borderRadius: 7,
-                  }}
-                >
-                  <Text style={{ marginTop: 10, marginLeft: 10 }}>
-                    ID: {item.id}
-                  </Text>
-                  <Text style={{ marginTop: 15, marginLeft: 10 }}>
-                    CPF: {item.cpf}
-                  </Text>
-                  <Text style={{ marginBottom: 10, marginLeft: 10 }}>
-                    NOME: {item.nome}
-                  </Text>
-
-                </View>
-              )}
-              keyExtractor={(item2, index) => index.toString()}
-            ></FlatList>
-          </View>
-        </View>
-
-      </View>
+      </>
     )
   }
 }
@@ -191,7 +206,7 @@ export default Lista;
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: "#3337",
+    backgroundColor: "#e6faf9",
   },
   input: {
     backgroundColor: "#FFF",
@@ -240,16 +255,18 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 50,
     width: 150,
-    backgroundColor: "#ffd913",
     borderRadius: 10,
     paddingHorizontal: 24,
-    fontSize: 16,
+    fontSize: 12,
     alignItems: "center",
     justifyContent: "center",
+    marginLeft: 30,
+
   },
   buttonText: {
     color: "black",
     fontWeight: "bold",
+    fontSize: 10,
   },
   containerLoading: {
     flex: 1,
