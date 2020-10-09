@@ -5,6 +5,8 @@ import {
   View,
   StyleSheet,
   TextInput,
+  ScrollView
+
 
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -13,6 +15,7 @@ import Funcionario from '../../database/ModelFuncionario'
 
 const Lista = ({ navigation }) => {
   const [data, setData] = useState([]);
+  const [query, setQuery] = useState([]);
 
   useEffect(() => {
     Funcionario.createTable()
@@ -31,15 +34,13 @@ const Lista = ({ navigation }) => {
     getFunFromApiAsync();
   }, []);
 
-  const addFuncionariosOffline = () => {
-    const props = {
-      id: 1,
-      nome: 'Jose Henrique',
-      cpf: '71103593013'
-    }
-    Funcionario.create(props)
-    console.log(props)
-  }
+  // const addFuncionariosOffline = () => {
+  //   const props = {
+  //     id: 380, nome: "Wonking great", cpf: "66959069041"
+  //   }
+  //   Funcionario.create(props)
+  //   console.log(props)
+  // }
 
   const listaFuncionarioOffline = async () => {
     const options = {
@@ -48,11 +49,8 @@ const Lista = ({ navigation }) => {
         id_gteq: 1
       },
     }
-    const query = await Funcionario.query(options)
-    console.log(query)
+    setQuery(await Funcionario.query(options))
   }
-
-
 
 
   return (
@@ -105,13 +103,43 @@ const Lista = ({ navigation }) => {
           ></FlatList>
         </View>
       </View>
-      <TouchableOpacity style={styles.button} onPress={listaFuncionarioOffline}>
+      <TouchableOpacity style={[styles.button, { marginHorizontal: '30%', marginVertical: '5%' }]} onPress={listaFuncionarioOffline}>
         <Text style={styles.buttonText}>Pesquisa Offline</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={addFuncionariosOffline}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <View style={styles.itemsContainer}>
+          <FlatList
+            data={query}
+            renderItem={({ item }) => (
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: "#000",
+                  marginBottom: 20,
+                  borderRadius: 7,
+                }}
+              >
+                <Text style={{ marginTop: 10, marginLeft: 10 }}>
+                  ID: {item.id}
+                </Text>
+                <Text style={{ marginTop: 15, marginLeft: 10 }}>
+                  CPF: {item.cpf}
+                </Text>
+                <Text style={{ marginBottom: 10, marginLeft: 10 }}>
+                  NOME: {item.nome}
+                </Text>
+
+              </View>
+            )}
+            keyExtractor={(item2, index) => index.toString()}
+          ></FlatList>
+        </View>
+      </View>
+
+      {/* <TouchableOpacity style={styles.button} onPress={addFuncionariosOffline}>
         <Text style={styles.buttonText}>Add Offline</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
