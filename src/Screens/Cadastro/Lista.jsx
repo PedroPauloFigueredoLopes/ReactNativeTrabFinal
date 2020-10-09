@@ -17,6 +17,7 @@ import api from "../../api/api";
 import Funcionario from '../../database/ModelFuncionario'
 import Header from "./Header";
 import { Entypo } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons'; 
 const Lista = ({ navigation }) => {
   const [data, setData] = useState([]);
   // const [query, setQuery] = useState([]);
@@ -38,21 +39,11 @@ const Lista = ({ navigation }) => {
       });
   };
   useEffect(() => {
-    // Funcionario.createTable()
+   
     getFunFromApiAsync();
   }, []);
 
-
-  // const listaFuncionarioOffline = async () => {
-  //   const options = {
-  //     columns: 'id,nome,cpf',
-  //     where: {
-  //       id_gteq: 1
-  //     },
-  //   }
-  //   setQuery(await Funcionario.query(options))
-  //   console.log(query)
-  // }
+  
 
   const searchFilterFunction = (text) => {
 
@@ -81,7 +72,8 @@ const Lista = ({ navigation }) => {
       <View style={styles.containerLoading}>
         <ActivityIndicator
           size="large"
-          color="#009688">
+          color="#009688"
+          >
 
         </ActivityIndicator>
         <Text>Carregando lista de funcionarios...</Text>
@@ -160,10 +152,11 @@ const Lista = ({ navigation }) => {
 
 
 
-          <TouchableOpacity style={[styles.button, { marginHorizontal: '30%', marginVertical: '5%' }]} onPress={() => {
+          <TouchableOpacity style={[styles.pesquisaContainer]} onPress={() => {
             navigation.navigate("ListaOff");
           }}>
-            <Text style={styles.buttonText}>Pesquisa Offline</Text>
+            <Text style={styles.pesquisaText}>Pesquisa Offline</Text>
+            <FontAwesome name="search" size={10} color="#e6faf9" />
           </TouchableOpacity>
 
           {/* <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -272,6 +265,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor:"#e6faf9",
 
   },
+  pesquisaContainer: {
+    paddingTop: 5,
+    paddingBottom: 25,
+    backgroundColor: "#09736f",
+    alignItems: "center",
+  },
+  pesquisaText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "white",
+  },
+
 });

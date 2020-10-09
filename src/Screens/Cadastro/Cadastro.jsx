@@ -62,7 +62,7 @@ function Form() {
       <View style={styles.background}>
         <View style={styles.container}>
           <Text style={styles.title}>
-            Preencha o os campos abaixo para adiconar novo funcionario:
+            Preencha  os campos abaixo para adiconar novo funcionario:
         </Text>
         </View>
         <View style={styles.inputContainer}>

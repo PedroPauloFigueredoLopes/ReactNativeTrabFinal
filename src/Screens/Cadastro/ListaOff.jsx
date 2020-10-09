@@ -8,12 +8,11 @@ import {
     Button,
     onPress,
     Icon,
-    ActivityIndicator
+    ActivityIndicator,
 
 
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import api from "../../api/api";
 import Funcionario from '../../database/ModelFuncionario'
 import Header from "./Header";
 import { Entypo } from '@expo/vector-icons';
@@ -26,6 +25,15 @@ const ListaOff = () => {
         Funcionario.createTable()
 
     }, []);
+    //adiciona funcionario repositorio local
+   /* const addFuncionariosOffline = () => {
+        const props = {
+            id: 385, nome: "Fernando Ramires", cpf: "37555475030"
+        }
+        Funcionario.create(props)
+        console.log(props)
+    }
+    */
     const listaFuncionarioOffline = async () => {
         const options = {
             columns: 'id,nome,cpf',
@@ -41,16 +49,17 @@ const ListaOff = () => {
 
     }, []);
 
+
     return (
         <>
             <Header title="Lista" />
             <View style={styles.background}>
                 <View style={styles.container}>
                 </View>
-
-
                 <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            
                     <View style={styles.itemsContainer}>
+
                         <FlatList
                             data={query}
                             renderItem={({ item }) => (
@@ -80,8 +89,8 @@ const ListaOff = () => {
                 </View>
             </View>
         </>
-    )
-}
+    );
+};
 
 
 export default ListaOff;
