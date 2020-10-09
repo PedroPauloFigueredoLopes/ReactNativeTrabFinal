@@ -5,7 +5,6 @@ import {
   View,
   StyleSheet,
   TextInput,
-<<<<<<< HEAD
   ScrollView
 
 
@@ -32,64 +31,8 @@ const Lista = ({ navigation }) => {
           console.log(err.response);
         });
     };
-=======
-  Button,
-  onPress,
-  Icon,
-} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-
-
-import api from "../../api/api";
-const Lista = ({ navigation }) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const [search, setSearch] = useState("");
-  const [filteredDataSource, setFilteredDataSource] = useState([]);
-  
-  
-  const searchFilterFunction = (text) => {
-    
-    if (text) {
-      
-      const newData = data.filter(function (item) {
-        
-        const itemData = item.nome ? item.nome.toUpperCase() : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setFilteredDataSource(newData);
-      setSearch(text);
-    } else {
-    
-      setFilteredDataSource(data);
-      
-      setSearch(text);
-    }
-  };
-  
-  const getFunFromApiAsync = async () => {
-    api("/funcionario") 
-    .then((response) => {
-      setData(response.data);
-      setFilteredDataSource(response.data)
-      setLoading(false);
-      console.log(response.data);
-    })
-    
-      .catch((err) => {
-        console.log(err.response);
-      })
- 
-  };
-
-  useEffect(() => {
->>>>>>> 211834d3a6f4839a3a937a9e11a7fa6d9a9fb465
     getFunFromApiAsync();
-  
   }, []);
-  
 
   // const addFuncionariosOffline = () => {
   //   const props = {
@@ -112,7 +55,6 @@ const Lista = ({ navigation }) => {
 
   return (
     <View style={styles.background}>
-<<<<<<< HEAD
       <TextInput
         placeholderTextColor="#3337"
         style={styles.input}
@@ -122,22 +64,8 @@ const Lista = ({ navigation }) => {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <View style={styles.itemsContainer}>
 
-=======
-      <View style={styles.container}>
-        <TextInput style={styles.textInputStyle}
-            onChangeText={(text) => searchFilterFunction(text)}
-            value={search}
-            underlineColorAndroid="transparent"
-            placeholder="Search Here"
-          
-        />
-      </View>
-
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <View>
->>>>>>> 211834d3a6f4839a3a937a9e11a7fa6d9a9fb465
           <FlatList
-            data={filteredDataSource}
+            data={data}
             renderItem={({ item }) => (
               <View
                 style={{
@@ -145,11 +73,9 @@ const Lista = ({ navigation }) => {
                   borderColor: "#000",
                   marginBottom: 20,
                   borderRadius: 7,
-                  backgroundColor: "#ffff",
                 }}
               >
                 <View style={{ marginLeft: 145 }}>
-<<<<<<< HEAD
                   <TouchableOpacity style={styles.button} onPress={() => {
                     navigation.navigate('Info',
                       {
@@ -158,18 +84,6 @@ const Lista = ({ navigation }) => {
                         itemcpf: item.cpf
                       });
                   }}>
-=======
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => {
-                      navigation.navigate("Info", {
-                        itemid: item.id,
-                        itemnome: item.nome,
-                        itemcpf: item.cpf,
-                      });
-                    }}
-                  >
->>>>>>> 211834d3a6f4839a3a937a9e11a7fa6d9a9fb465
                     <Text style={styles.buttonText}>Editar/Deletar</Text>
                   </TouchableOpacity>
                 </View>
@@ -182,12 +96,10 @@ const Lista = ({ navigation }) => {
                 <Text style={{ marginBottom: 10, marginLeft: 10 }}>
                   NOME: {item.nome}
                 </Text>
+
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
-            onRefresh={() => getFunFromApiAsync()}
-            refreshing={loading}
-            
           ></FlatList>
         </View>
       </View>
@@ -257,20 +169,6 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     borderRadius: 7,
   },
-  container: {
-    backgroundColor: "white",
-  },
-  itemStyle: {
-    padding: 10,
-  },
-  textInputStyle: {
-    height: 40,
-    borderWidth: 1,
-    paddingLeft: 20,
-    margin: 5,
-    borderColor: "#009688",
-    backgroundColor: "#FFFFFF",
-  },
   list: {
     paddingHorizontal: 20,
   },
@@ -295,8 +193,4 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
   },
-<<<<<<< HEAD
 });
-=======
-}); 
->>>>>>> 211834d3a6f4839a3a937a9e11a7fa6d9a9fb465
