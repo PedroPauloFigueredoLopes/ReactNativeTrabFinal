@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import api from "../../api/api";
+import Header from "./Header";
+import { Entypo } from '@expo/vector-icons';
 const Lista = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -68,7 +70,7 @@ size="large"
 color="#009688">
 
 </ActivityIndicator>
-<Text>Aguarde</Text>
+<Text>Carregando lista de funcionarios...</Text>
 
 </View>
     )
@@ -80,13 +82,14 @@ else
 
   return (
     <>
+    <Header title="Lista" />
     <View style={styles.background}>
       <View style={styles.container}>
         <TextInput style={styles.textInputStyle}
             onChangeText={(text) => searchFilterFunction(text)}
             value={search}
             underlineColorAndroid="transparent"
-            placeholder="Search Here"
+            placeholder="Digite o nome do funcionario que deseja encontrar"
           
         />
       </View>
@@ -101,8 +104,9 @@ else
                   borderWidth: 1,
                   borderColor: "#000",
                   marginBottom: 20,
-                  borderRadius: 7,
+                  borderRadius: 10,
                   backgroundColor: "#ffff",
+                  
                 }}
               >
                 <View style={{ marginLeft: 145 }}>
@@ -116,18 +120,20 @@ else
                       });
                     }}
                   >
+                    <Entypo name="edit" size={20} color="#009688" />
                     <Text style={styles.buttonText}>Editar/Deletar</Text>
                   </TouchableOpacity>
-                </View>
-                <Text style={{ marginTop: 10, marginLeft: 10 }}>
+                </View >
+                <Text style={{ fontSize:20, marginLeft: 10 ,marginTop:-40}}>
                   ID: {item.id}
                 </Text>
-                <Text style={{ marginTop: 15, marginLeft: 10 }}>
-                  CPF: {item.cpf}
-                </Text>
-                <Text style={{ marginBottom: 10, marginLeft: 10 }}>
+                <Text style={{ marginTop: 10, marginLeft: 10 }}>
                   NOME: {item.nome}
                 </Text>
+                <Text style={{ marginBottom: 15, marginLeft: 10 }}>
+                  CPF: {item.cpf}
+                </Text>
+                
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -146,7 +152,7 @@ export default Lista;
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: "#3337",
+    backgroundColor: "#e6faf9",
   },
   input: {
     backgroundColor: "#FFF",
@@ -195,16 +201,18 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 50,
     width: 150,
-    backgroundColor: "#ffd913",
     borderRadius: 10,
     paddingHorizontal: 24,
-    fontSize: 16,
+    fontSize: 12,
     alignItems: "center",
     justifyContent: "center",
+    marginLeft: 30,
+    
   },
   buttonText: {
     color: "black",
     fontWeight: "bold",
+    fontSize:10,
   },
   containerLoading:{
 flex:1,

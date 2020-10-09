@@ -62,13 +62,24 @@ const Info = ({ route }) => {
   return (
     <>
      <Header title='Info'/>
-    <View style={{ flex: 1, alignItems: 'center' }}>
-      <Text style={{ fontSize: 16, fontWeight: 'bold', marginTop: 25 }}>Informações do Funcionario:</Text>
-
-      <Text>Id: {JSON.stringify(itemid)}</Text>
-      <Text>Nome: {JSON.stringify(itemnome)}</Text>
-      <Text> CPF: {JSON.stringify(itemcpf)}</Text>
-      <View style={{ width: '80%', marginVertical: 15 }}>
+     <View style={styles.background}>
+    <View >
+  
+      <Text style={{ fontSize: 16, fontWeight: 'bold', marginTop: 30, marginLeft:10 }}>Informações do Funcionario:</Text>
+      <View style={{
+                  borderWidth: 1,
+                  borderColor: "#000",
+                  marginBottom: 20,
+                  borderRadius: 10,
+                  backgroundColor: "#ffff",
+                  marginTop:20,
+                  
+                }}>
+      <Text style={{ fontSize:20, marginLeft: 10 ,marginTop:10}}>ID: {JSON.stringify(itemid)}</Text>
+      <Text style={{ marginTop: 10, marginLeft: 10 }}>Nome: {JSON.stringify(itemnome)}</Text>
+      <Text style={{ marginBottom: 15, marginLeft: 10 }}> CPF: {JSON.stringify(itemcpf)}</Text>
+      </View>
+      <View style={{ width: '90%', marginVertical: 15, marginLeft:20 }}>
         <TextInput
           placeholderTextColor="#3337"
           style={styles.input}
@@ -78,24 +89,26 @@ const Info = ({ route }) => {
           value={nome}
         />
       </View>
-      <View style={{ width: '80%', marginVertical: 15 }}>
+      <View style={{ width: '90%', marginVertical: 15 , marginLeft:20}}>
         <TextInput
           placeholderTextColor="#3337"
           style={styles.input}
           placeholder="Alterar cpf do Funcionario"
+          keyboardType={"numeric"}
           autoCorrect={false}
           onChangeText={setCpf}
           value={cpf}
         />
       </View>
       <View>
-        <TouchableOpacity style={styles.button} onPress={editarDados}>
+        <TouchableOpacity style={[styles.button,{marginRight:200}]} onPress={editarDados}>
           <Text style={styles.buttonText}>Alterar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, { backgroundColor: 'red' }]} onPress={handleButtonPressDelete}>
+        <TouchableOpacity style={[styles.button, { backgroundColor: 'red', marginTop: -60,marginLeft: 200,  }]} onPress={handleButtonPressDelete}>
           <Text style={styles.buttonText}>Deletar</Text>
         </TouchableOpacity>
       </View>
+    </View>
     </View>
     </>
   );
@@ -104,7 +117,7 @@ export default Info;
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: "#3337",
+    backgroundColor: "#e6faf9",
   },
   input: {
     backgroundColor: "#FFF",
@@ -137,13 +150,14 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
+    flexDirection: 'row',
     height: 60,
-    backgroundColor: "#ffd913",
+    backgroundColor: "#009688",
     borderRadius: 10,
     paddingHorizontal: 24,
     fontSize: 16,
     alignItems: "center",
-    justifyContent: "center",
+    
     flexDirection: 'row',
     justifyContent: 'space-around',
   },

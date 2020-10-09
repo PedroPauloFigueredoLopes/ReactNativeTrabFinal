@@ -24,7 +24,7 @@ const Login = ({ navigation }) => {
       <View style={styles.logo}>
         <Image 
         
-        source={require("../../Imagens/rh.jpg")}
+        source={require("../../Imagens/Rhfinal.jpg")}
          />
       </View>
       <TextInput
@@ -37,6 +37,7 @@ const Login = ({ navigation }) => {
         placeholderTextColor="#3337"
         style={styles.input}
         placeholder="Senha"
+        secureTextEntry={true}
         autoCorrect={false}
         onChangeText={() => {}}
       />
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: "center",
     justifyContent: "center",
-    backgroundColor: "#3337",
+    backgroundColor: "#e6faf9",
   },
 
   logo: {
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   submitbutton: {
-    backgroundColor:"#66b3ff",
+    backgroundColor:"#09736f",
     width: "90%",
     height: 45,
     marginLeft: 15,
