@@ -7,6 +7,7 @@ import {
   TouchableOpacity, Alert,
 } from "react-native";
 import api from "../../api/api";
+import Header from "../Cadastro/Header";
 
 
 const Info = ({ route }) => {
@@ -71,6 +72,8 @@ const Info = ({ route }) => {
 
 
   return (
+    <>
+     <Header title='Info'/>
     <View style={{ flex: 1, alignItems: 'center' }}>
       <Text style={{ fontSize: 16, fontWeight: 'bold', marginTop: 25 }}>Informações do Funcionario:</Text>
 
@@ -106,6 +109,7 @@ const Info = ({ route }) => {
         </TouchableOpacity>
       </View>
     </View>
+    </>
   );
 };
 export default Info;

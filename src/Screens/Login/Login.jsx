@@ -10,8 +10,8 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import api from "../../api/api";
 const Login = ({ navigation }) => {
+  
   const goToListaScreen = () => {
     navigation.reset({
       index: 1,
@@ -22,7 +22,10 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.background}>
       <View style={styles.logo}>
-        <Image source={require("../../Imagens/ruteste2.jpg")} />
+        <Image 
+        
+        source={require("../../Imagens/rh.jpg")}
+         />
       </View>
       <TextInput
         placeholderTextColor="#3337"
@@ -58,6 +61,7 @@ const styles = StyleSheet.create({
   },
 
   logo: {
+ 
     marginBottom: 15,
     justifyContent: "center",
     alignItems: "center",
@@ -83,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   submitbutton: {
-    backgroundColor: "#ffd913",
+    backgroundColor:"#66b3ff",
     width: "90%",
     height: 45,
     marginLeft: 15,

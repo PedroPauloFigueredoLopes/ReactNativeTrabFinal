@@ -8,15 +8,14 @@ import {
   Button,
   onPress,
   Icon,
+  ActivityIndicator
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
-
 import api from "../../api/api";
+import Header from "./Header";
 const Lista = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   
@@ -60,9 +59,30 @@ const Lista = ({ navigation }) => {
     getFunFromApiAsync();
   
   }, []);
+  if(loading){
+    return(
+<View style={styles.containerLoading}>
+
   
+<ActivityIndicator
+size="large"
+color="#009688">
+
+</ActivityIndicator>
+<Text>Aguarde</Text>
+
+</View>
+    )
+  }
+else
+{
+
+
 
   return (
+    <>
+          <Header title="Lista" />
+
     <View style={styles.background}>
       <View style={styles.container}>
         <TextInput style={styles.textInputStyle}
@@ -121,7 +141,9 @@ const Lista = ({ navigation }) => {
         </View>
       </View>
     </View>
+    </>
   );
+};
 };
 export default Lista;
 const styles = StyleSheet.create({
@@ -186,5 +208,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "black",
     fontWeight: "bold",
+  },
+  containerLoading:{
+flex:1,
+justifyContent:"center",
+alignItems:"center",
+
   },
 }); 
