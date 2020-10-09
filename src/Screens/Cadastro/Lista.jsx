@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import api from "../../api/api";
-import Header from "./Header";
 const Lista = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -81,8 +80,6 @@ else
 
   return (
     <>
-          <Header title="Lista" />
-
     <View style={styles.background}>
       <View style={styles.container}>
         <TextInput style={styles.textInputStyle}

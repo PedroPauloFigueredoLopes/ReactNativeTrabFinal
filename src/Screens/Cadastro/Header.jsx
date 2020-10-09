@@ -12,8 +12,8 @@ function Header(props) {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 30,
-    paddingBottom: 20,
-    backgroundColor: "#ffd913",
+    paddingBottom: 25,
+    backgroundColor: "#134fff",
     alignItems: "center",
   },
   headerText: {
